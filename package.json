@@ -1,0 +1,46 @@
+{
+  "name": "neutrino-preset-cep",
+  "version": "0.0.0",
+  "description": "A Neutrino preset for developing plugins on Adobe's CEP (Common Extensibility Platform)",
+  "main": "index.js",
+  "scripts": {
+    "release": "standard-version -r",
+    "test": "ava test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sammarks/neutrino-preset-cep.git"
+  },
+  "keywords": [
+    "neutrino-preset",
+    "cep",
+    "csxs",
+    "adobe",
+    "plugin",
+    "extendscript"
+  ],
+  "author": "Sam Marks <sam@sammarks.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sammarks/neutrino-preset-cep/issues"
+  },
+  "homepage": "https://github.com/sammarks/neutrino-preset-cep#readme",
+  "peerDependencies": {
+    "neutrino": "^8.0.0"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "neutrino": "^8.0.0",
+    "standard-version": "^4.4.0",
+    "webpack": "^3.0.0"
+  },
+  "dependencies": {
+    "@neutrinojs/compile-loader": "^8.3.0",
+    "@neutrinojs/react": "^8.3.0",
+    "case": "^1.5.5",
+    "deepmerge": "^2.1.1",
+    "neutrino-middleware-jsxbin": "0.0.2",
+    "neutrino-middleware-wrapper": "0.0.1",
+    "neutrino-middleware-xml": "0.0.1"
+  }
+}

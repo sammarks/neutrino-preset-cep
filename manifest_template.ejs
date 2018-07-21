@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ExtensionManifest Version="5.0" ExtensionBundleId="<%= bundleId %>" ExtensionBundleVersion="<%= version %>"
+                   ExtensionBundleName="<%= bundleName %>" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <ExtensionList>
+        <%_ Object.keys(extensions).forEach((extensionKey) => { _%>
+        <Extension Id="<%= bundleId %>.<%= extensionKey %>" Version="<%= version %>" />
+        <%_ }) _%>
+    </ExtensionList>
+
+    <ExecutionEnvironment>
+        <HostList>
+            <%_ Object.keys(hosts).forEach((hostKey) => { _%>
+            <Host Name="<%= hostKey %>" Version="<%= hosts[hostKey] %>" />
+            <%_ }) _%>
+        </HostList>
+        <LocaleList>
+            <%_ locales.forEach((locale) => { _%>
+            <Locale Code="<%= locale %>" />
+            <%_ }) _%>
+        </LocaleList>
+        <RequiredRuntimeList>
+            <%_ Object.keys(requiredRuntimes).forEach((requiredRuntimeKey) => { _%>
+            <RequiredRuntime Name="<%= requiredRuntimeKey %>" Version="<%= requiredRuntimes[requiredRuntimeKey] %>" />
+            <%_ }) _%>
+        </RequiredRuntimeList>
+    </ExecutionEnvironment>
+    <DispatchInfoList>
+        <%_ Object.keys(extensions).forEach((key) => { _%>
+        <Extension Id="<%= bundleId %>.<%= key %>">
+            <DispatchInfo>
+                <Resources>
+                    <MainPath>./<%= key %>.html</MainPath>
+                    <ScriptPath>./<%= key %>-extendscript.jsxbin</ScriptPath>
+                    <CEFCommandLine>
+                        <%_ extensions[key].commandLine.forEach((item) => { _%>
+                        <Parameter><%= item %></Parameter>
+                        <%_ }) _%>
+                    </CEFCommandLine>
+                </Resources>
+                <Lifecycle>
+                    <AutoVisible><%= extensions[key].autoVisible %></AutoVisible>
+                </Lifecycle>
+                <UI>
+                    <Type><%= extensions[key].type %></Type>
+                    <Menu><%= extensions[key].title %></Menu>
+                    <Geometry>
+                        <%_ if (extensions[key].size) { _%>
+                        <Size>
+                            <Width><%= extensions[key].size[0] %></Width>
+                            <Height><%= extensions[key].size[1] %></Height>
+                        </Size>
+                        <%_ } _%>
+                        <%_ if (extensions[key].maxSize) { _%>
+                        <MaxSize>
+                            <Width><%= extensions[key].maxSize[0] %></Width>
+                            <Height><%= extensions[key].maxSize[1] %></Height>
+                        </MaxSize>
+                        <%_ } _%>
+                        <%_ if (extensions[key].minSize) { _%>
+                        <MinSize>
+                            <Width><%= extensions[key].minSize[0] %></Width>
+                            <Height><%= extensions[key].minSize[1] %></Height>
+                        </MinSize>
+                        <%_ } _%>
+                    </Geometry>
+                </UI>
+            </DispatchInfo>
+        </Extension>
+        <%_ }) _%>
+    </DispatchInfoList>
+</ExtensionManifest>
