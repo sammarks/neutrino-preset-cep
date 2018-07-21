@@ -32,13 +32,10 @@ module.exports = (neutrino, options = {}) => {
   }
 
   // Override mains.
-  const mains = Object.keys(xmlData.extensions).reduce((mains, key) => {
-    mains[key] = key
+  neutrino.options.mains = merge(Object.keys(xmlData.extensions).reduce((mains, key) => {
+    mains[key] = path.resolve(neutrino.options.source, key)
     return mains
-  }, {})
-  neutrino.use((neutrino) => {
-    neutrino.options.mains = mains
-  })
+  }, {}), options.mains || {})
 
   // Use React
   neutrino.use(react, merge({
@@ -54,11 +51,9 @@ module.exports = (neutrino, options = {}) => {
   neutrino.use((neutrino) => {
 
     // Remap mains.
-    Object.keys(neutrino.options.mains).forEach((mainKey) => {
-      const filepath = neutrino.options.mains[mainKey]
-      const filename = path.basename(filepath)
-      neutrino.config.entry(`${mainKey}-extendscript`)
-        .add(path.resolve(filepath.replace(filename, ''), '..', 'extendscript', filename))
+    Object.keys(xmlData.extensions).forEach((extensionKey) => {
+      neutrino.config.entry(`${extensionKey}-extendscript`)
+        .add(path.resolve(neutrino.options.root, 'extendscript', extensionKey))
     })
 
     // Remove runtime-chunk + vendor-chunk as we want them separated (don't care too much about small sizes).
@@ -72,7 +67,7 @@ module.exports = (neutrino, options = {}) => {
 
   // Add compile-loader for the ExtendScript.
   neutrino.use(compileLoader, merge({
-    include: [path.resolve(neutrino.options.source, '..', 'extendscript')],
+    include: [path.resolve(neutrino.options.root, 'extendscript')],
     babel: {
       presets: [
         ['babel-preset-env', {
@@ -95,9 +90,13 @@ module.exports = (neutrino, options = {}) => {
 
   // Add neutrino-middleware-xml
   neutrino.use(xml, merge({
-    template: path.join(__dirname, 'manifest_template.ejs'),
-    filename: 'CSXS/manifest.xml',
-    data: xmlData
+    files: [
+      {
+        template: path.join(__dirname, 'manifest_template.ejs'),
+        filename: 'CSXS/manifest.xml',
+        data: xmlData
+      }
+    ]
   }, options.xml || {}))
 
   // Add neutrino-middleware-jsxbin
