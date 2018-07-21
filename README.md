@@ -21,7 +21,7 @@ module.exports = {
 ```
 
 Additionally, you'll need to provide some configuration options in your `package.json` (or in the `.neutrinorc.js` file).
-See the **Configuration** section below for more details.
+See the [Configuration](#configuration) section below for more details.
 
 ### Project Layout
 
