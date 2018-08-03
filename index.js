@@ -4,6 +4,7 @@ const compileLoader = require('@neutrinojs/compile-loader')
 const wrapper = require('neutrino-middleware-wrapper')
 const xml = require('neutrino-middleware-xml')
 const jsxbin = require('neutrino-middleware-jsxbin')
+const webpack = require('webpack')
 const merge = require('deepmerge')
 const Case = require('case')
 
@@ -103,4 +104,12 @@ module.exports = (neutrino, options = {}) => {
   neutrino.use(jsxbin, merge({
     test: /-extendscript\.js$/
   }, options.jsxbin || {}))
+
+  // Add webpack.DefinePlugin
+  neutrino.config.plugin('define')
+    .use(webpack.DefinePlugin, [{
+      'process.env': {
+        APP_VERSION: JSON.stringify(packageJson.version)
+      }
+    }])
 }
