@@ -40,10 +40,12 @@
     "@neutrinojs/compile-loader": "^8.3.0",
     "@neutrinojs/react": "^8.3.0",
     "case": "^1.5.5",
+    "copy-webpack-plugin": "^4.5.2",
     "deepmerge": "^2.1.1",
     "es3ify-loader": "^0.2.0",
     "neutrino-middleware-jsxbin": "0.0.2",
     "neutrino-middleware-wrapper": "0.0.1",
-    "neutrino-middleware-xml": "0.0.1"
+    "neutrino-middleware-xml": "0.0.1",
+    "webpack-shell-plugin": "^0.5.0"
   }
 }

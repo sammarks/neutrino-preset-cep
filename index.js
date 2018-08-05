@@ -7,6 +7,8 @@ const jsxbin = require('neutrino-middleware-jsxbin')
 const webpack = require('webpack')
 const merge = require('deepmerge')
 const Case = require('case')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const WebpackShellPlugin = require('webpack-shell-plugin')
 
 module.exports = (neutrino, options = {}) => {
   const packageJson = options.packageJson || neutrino.options.packageJson || {}
@@ -138,16 +140,16 @@ module.exports = (neutrino, options = {}) => {
       'process.env': env
     }])
 
-  // Final configuration changes.
+  // Adding externals.
+  const externals = Object.assign({
+    'temp': 'commonjs temp',
+    'mkdirp': 'commonjs mkdirp',
+    'path': 'commonjs path',
+    'fs': 'commonjs fs',
+    'os': 'commonjs os',
+    'child_process': 'commonjs child_process'
+  }, options.externals || {})
   neutrino.use((neutrino) => {
-    const externals = Object.assign({
-      'temp': 'commonjs temp',
-      'mkdirp': 'commonjs mkdirp',
-      'path': 'commonjs path',
-      'fs': 'commonjs fs',
-      'os': 'commonjs os',
-      'child_process': 'commonjs child_process'
-    }, options.externals || {})
     if (process.env.NODE_ENV !== 'development') {
       // Define externals.
       neutrino.config.externals(externals)
@@ -161,4 +163,11 @@ module.exports = (neutrino, options = {}) => {
       })
     }
   })
+
+  neutrino.config.plugin('copy-package-json')
+    .use(CopyWebpackPlugin, [['package.json']])
+  neutrino.config.plugin('npm-install')
+    .use(WebpackShellPlugin, [{
+      onBuildEnd: [`(cd ${path.resolve(neutrino.options.output)} && npm install --production)`]
+    }])
 }
