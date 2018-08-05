@@ -23,7 +23,7 @@ module.exports = (neutrino, options = {}) => {
       extensions[key] = {
         commandLine: ['--enable-nodejs', '--allow-file-access-from-files', '--allow-file-access'],
         autoVisible: true,
-        type: 'panel',
+        type: 'Panel',
         title: 'Adobe Plugin',
         size: [300, 300],
         ...packageJson.manifest.extensions[key]
