@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.6"></a>
+## [0.0.6](https://github.com/sammarks/neutrino-preset-cep/compare/v0.0.5...v0.0.6) (2018-08-05)
+
+
+### Bug Fixes
+
+* Default type to "Panel" instead of "panel" ([7bd0668](https://github.com/sammarks/neutrino-preset-cep/commit/7bd0668))
+
+
+### Features
+
+* Add support for defining externals. ([2d85f7b](https://github.com/sammarks/neutrino-preset-cep/commit/2d85f7b))
+* Copies `package.json` and runs `npm install` in the build directory. ([ff356d9](https://github.com/sammarks/neutrino-preset-cep/commit/ff356d9))
+
+
+
 <a name="0.0.5"></a>
 ## [0.0.5](https://github.com/sammarks/neutrino-preset-cep/compare/v0.0.4...v0.0.5) (2018-08-05)
 
