@@ -43,6 +43,9 @@ module.exports = (neutrino, options = {}) => {
     html: {
       title: packageJson.name
     },
+    minify: {
+      babel: false
+    },
     targets: {
       browsers: ['chrome 27']
     }
@@ -55,6 +58,10 @@ module.exports = (neutrino, options = {}) => {
     Object.keys(xmlData.extensions).forEach((extensionKey) => {
       neutrino.config.entry(`${extensionKey}-extendscript`)
         .add(path.resolve(neutrino.options.root, 'extendscript', extensionKey))
+      if (process.env.JSX_DEBUG) {
+        neutrino.config.entry(`${extensionKey}-extendscript-debug`)
+          .add(path.resolve(neutrino.options.root, 'extendscript', extensionKey))
+      }
     })
 
     // Remove runtime-chunk + vendor-chunk as we want them separated (don't care too much about small sizes).
@@ -72,8 +79,9 @@ module.exports = (neutrino, options = {}) => {
     babel: {
       presets: [
         ['babel-preset-env', {
+          loose: true,
           targets: {
-            browsers: ['chrome 20']
+            browsers: ['ie >= 7']
           }
         }]
       ]
@@ -82,11 +90,24 @@ module.exports = (neutrino, options = {}) => {
     useId: 'babel-extendscript'
   }, options.compileLoader || {}))
 
+  // Add es3ify for the ExtendScript.
+  neutrino.use((neutrino) => {
+    neutrino.config.module
+      .rule('compile-es3')
+      .test(neutrino.regexFromExtensions())
+      .post()
+      .include
+        .add(path.resolve(neutrino.options.root, 'extendscript'))
+        .end()
+      .use('es3ify')
+        .loader(require.resolve('es3ify-loader'))
+  })
+
   // Add neutrino-middleware-wrapper
   neutrino.use(wrapper, merge({
-    test: /-extendscript\.js$/,
+    test: /(-extendscript|-extendscript-debug)\.js$/,
     header: `var ${extendScriptClass} = (function() { return `,
-    footer: ' }){};'
+    footer: ' })();'
   }, options.wrapper || {}))
 
   // Add neutrino-middleware-xml
@@ -112,4 +133,10 @@ module.exports = (neutrino, options = {}) => {
         APP_VERSION: JSON.stringify(packageJson.version)
       }
     }])
+
+  // Final configuration changes.
+  neutrino.use((neutrino) => {
+    // Remove externals (there are none).
+    neutrino.config.externals(undefined)
+  })
 }

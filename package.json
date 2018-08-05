@@ -39,8 +39,12 @@
   "dependencies": {
     "@neutrinojs/compile-loader": "^8.3.0",
     "@neutrinojs/react": "^8.3.0",
+    "babel-plugin-transform-es3-member-expression-literals": "^6.22.0",
+    "babel-plugin-transform-es3-modules-literals": "0.0.3",
+    "babel-plugin-transform-es3-property-literals": "^6.22.0",
     "case": "^1.5.5",
     "deepmerge": "^2.1.1",
+    "es3ify-loader": "^0.2.0",
     "neutrino-middleware-jsxbin": "0.0.2",
     "neutrino-middleware-wrapper": "0.0.1",
     "neutrino-middleware-xml": "0.0.1"
