@@ -127,16 +127,38 @@ module.exports = (neutrino, options = {}) => {
   }, options.jsxbin || {}))
 
   // Add webpack.DefinePlugin
+  const env = Object.keys(process.env).reduce((env, key) => {
+    env[key] = JSON.stringify(process.env[key])
+    return env
+  }, {
+    APP_VERSION: JSON.stringify(packageJson.version)
+  })
   neutrino.config.plugin('define')
     .use(webpack.DefinePlugin, [{
-      'process.env': {
-        APP_VERSION: JSON.stringify(packageJson.version)
-      }
+      'process.env': env
     }])
 
   // Final configuration changes.
   neutrino.use((neutrino) => {
-    // Remove externals (there are none).
-    neutrino.config.externals(undefined)
+    const externals = Object.assign({
+      'temp': 'commonjs temp',
+      'mkdirp': 'commonjs mkdirp',
+      'path': 'commonjs path',
+      'fs': 'commonjs fs',
+      'os': 'commonjs os',
+      'child_process': 'commonjs child_process'
+    }, options.externals || {})
+    if (process.env.NODE_ENV !== 'development') {
+      // Define externals.
+      neutrino.config.externals(externals)
+      // Define node config.
+      Object.keys(externals).forEach((external) => {
+        neutrino.config.node.set(external, false)
+      })
+    } else {
+      Object.keys(externals).forEach((external) => {
+        neutrino.config.node.set(external, 'empty')
+      })
+    }
   })
 }

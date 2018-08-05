@@ -115,6 +115,9 @@ module.exports = {
 
 - `options.packageJson` - Supply an object for this field similar to the structure of the `package.json` file. A detailed
     explanation on how to use this feature is above.
+- `options.externals` - Any additional externals defined here are sent straight into Webpack. Use this if you are using
+    a module that requires internal Node APIs (like `fs` or `child_process`). A few externals are already defined by
+    default. These are mocked in the development environment to allow developers to debug in the browser.
 
 This preset makes use of the following presets and middleware, with their configuration paths specified.
 
