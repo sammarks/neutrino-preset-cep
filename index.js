@@ -164,8 +164,12 @@ module.exports = (neutrino, options = {}) => {
     }
   })
 
+  // Copy static assets & dependencies.
   neutrino.config.plugin('copy-package-json')
-    .use(CopyWebpackPlugin, [['package.json']])
+    .use(CopyWebpackPlugin, [[
+      path.join(neutrino.options.root, 'package.json'),
+      path.join(neutrino.options.root, 'static')
+    ]])
   neutrino.config.plugin('npm-install')
     .use(WebpackShellPlugin, [{
       onBuildEnd: [`(cd ${path.resolve(neutrino.options.output)} && npm install --production)`]

@@ -28,7 +28,9 @@ See the [Configuration](#configuration) section below for more details.
 `neutrino-preset-cep` follows the standard [project layout](https://neutrinojs.org/project-layout.html) specified by
 Neutrino. This means that by default all project source code should live in a directory named `src` in the root
 of the project. Any ExtendScript source code should live in a directory named `extendscript` in the root of the
-project, since it is compiled differently.
+project, since it is compiled differently. Any static assets found in `static` in the root of the project will
+be copied directly to the `build` directory. For example, `static/test.png` will be copied to `build/test.png`
+and `static/foo/test.png` will be copied to `build/foo/test.png`.
 
 ### Configuration
 
