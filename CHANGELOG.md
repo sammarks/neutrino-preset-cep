@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.8"></a>
+## [0.0.8](https://github.com/sammarks/neutrino-preset-cep/compare/v0.0.7...v0.0.8) (2018-08-18)
+
+
+### Features
+
+* ES5 Shim + JSON polyfill. ([8379334](https://github.com/sammarks/neutrino-preset-cep/commit/8379334))
+
+
+
 <a name="0.0.7"></a>
 ## [0.0.7](https://github.com/sammarks/neutrino-preset-cep/compare/v0.0.6...v0.0.7) (2018-08-11)
 
