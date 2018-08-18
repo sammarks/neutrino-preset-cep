@@ -53,18 +53,27 @@ module.exports = (neutrino, options = {}) => {
     }
   }, options.react || {}))
 
-  // Custom middleware to override React.
+  // Custom middleware to override React + add ExtendScript entries.
   neutrino.use((neutrino) => {
 
     // Remap mains.
     Object.keys(xmlData.extensions).forEach((extensionKey) => {
       neutrino.config.entry(`${extensionKey}-extendscript`)
+        .add(require.resolve('es5-shim'))
         .add(path.resolve(neutrino.options.root, 'extendscript', extensionKey))
       if (process.env.JSX_DEBUG) {
         neutrino.config.entry(`${extensionKey}-extendscript-debug`)
+          .add(require.resolve('es5-shim'))
           .add(path.resolve(neutrino.options.root, 'extendscript', extensionKey))
       }
     })
+
+    // Add rule for JSON3 to replace the global JSON object.
+    neutrino.config.module.rule('json3')
+      .test(require.resolve('json3'))
+      .use('expose')
+        .loader('expose-loader')
+        .options('JSON')
 
     // Remove runtime-chunk + vendor-chunk as we want them separated (don't care too much about small sizes).
     neutrino.config.plugins.delete('runtime-chunk')
