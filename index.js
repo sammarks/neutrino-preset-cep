@@ -62,6 +62,15 @@ module.exports = (neutrino, options = {}) => {
   // Custom middleware to override React + add ExtendScript entries.
   neutrino.use((neutrino) => {
 
+    // Babel Plugins
+    neutrino.config.module.rule('compile').use('babel').tap(options => {
+      const decoratorsPlugin = require.resolve('babel-plugin-transform-decorators-legacy')
+      const classPropertiesPlugin = require.resolve('babel-plugin-transform-class-properties')
+      options.plugins.unshift(decoratorsPlugin, classPropertiesPlugin)
+
+      return options
+    })
+
     // Remap mains.
     Object.keys(xmlData.extensions).forEach((extensionKey) => {
       if (!xmlData.extensions[extensionKey].manifestOnly) {
