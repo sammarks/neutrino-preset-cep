@@ -29,8 +29,12 @@
         <Extension Id="<%= bundleId %>.<%= key %>">
             <DispatchInfo>
                 <Resources>
-                    <MainPath>./<%= key %>.html</MainPath>
-                    <ScriptPath>./<%= key %>-extendscript.jsxbin</ScriptPath>
+                    <%_ if (extensions[key].mainPath) { _%>
+                    <MainPath><%= extensions[key].mainPath %></MainPath>
+                    <%_ } _%>
+                    <%_ if (extensions[key].scriptPath) { _%>
+                    <ScriptPath><%= extensions[key].scriptPath %></ScriptPath>
+                    <%_ } _%>
                     <CEFCommandLine>
                         <%_ extensions[key].commandLine.forEach((item) => { _%>
                         <Parameter><%= item %></Parameter>
@@ -42,7 +46,9 @@
                 </Lifecycle>
                 <UI>
                     <Type><%= extensions[key].type %></Type>
+                    <%_ if (extensions[key].showMenu) { _%>
                     <Menu><%= extensions[key].title %></Menu>
+                    <%_ } _%>
                     <Geometry>
                         <%_ if (extensions[key].size) { _%>
                         <Size>

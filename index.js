@@ -28,6 +28,10 @@ module.exports = (neutrino, options = {}) => {
         type: 'Panel',
         title: 'Adobe Plugin',
         size: [300, 300],
+        mainPath: `./${key}.html`,
+        scriptPath: `./${key}-extendscript.jsxbin`,
+        manifestOnly: false,
+        showMenu: true,
         ...packageJson.manifest.extensions[key]
       }
       return extensions
@@ -36,7 +40,9 @@ module.exports = (neutrino, options = {}) => {
 
   // Override mains.
   neutrino.options.mains = merge(Object.keys(xmlData.extensions).reduce((mains, key) => {
-    mains[key] = path.resolve(neutrino.options.source, key)
+    if (!xmlData.extensions[key].manifestOnly) {
+      mains[key] = path.resolve(neutrino.options.source, key)
+    }
     return mains
   }, {}), options.mains || {})
 
@@ -58,13 +64,15 @@ module.exports = (neutrino, options = {}) => {
 
     // Remap mains.
     Object.keys(xmlData.extensions).forEach((extensionKey) => {
-      neutrino.config.entry(`${extensionKey}-extendscript`)
-        .add(require.resolve('es5-shim'))
-        .add(path.resolve(neutrino.options.root, 'extendscript', extensionKey))
-      if (process.env.JSX_DEBUG) {
-        neutrino.config.entry(`${extensionKey}-extendscript-debug`)
+      if (!xmlData.extensions[extensionKey].manifestOnly) {
+        neutrino.config.entry(`${extensionKey}-extendscript`)
           .add(require.resolve('es5-shim'))
           .add(path.resolve(neutrino.options.root, 'extendscript', extensionKey))
+        if (process.env.JSX_DEBUG) {
+          neutrino.config.entry(`${extensionKey}-extendscript-debug`)
+            .add(require.resolve('es5-shim'))
+            .add(path.resolve(neutrino.options.root, 'extendscript', extensionKey))
+        }
       }
     })
 
