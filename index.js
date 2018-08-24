@@ -76,21 +76,16 @@ module.exports = (neutrino, options = {}) => {
       if (!xmlData.extensions[extensionKey].manifestOnly) {
         neutrino.config.entry(`${extensionKey}-extendscript`)
           .add(require.resolve('es5-shim'))
+          .add(require.resolve('es5-shim/es5-sham'))
           .add(path.resolve(neutrino.options.root, 'extendscript', extensionKey))
         if (process.env.JSX_DEBUG) {
           neutrino.config.entry(`${extensionKey}-extendscript-debug`)
             .add(require.resolve('es5-shim'))
+            .add(require.resolve('es5-shim/es5-sham'))
             .add(path.resolve(neutrino.options.root, 'extendscript', extensionKey))
         }
       }
     })
-
-    // Add rule for JSON3 to replace the global JSON object.
-    neutrino.config.module.rule('json3')
-      .test(require.resolve('json3'))
-      .use('expose')
-        .loader('expose-loader')
-        .options('JSON')
 
     // Remove runtime-chunk + vendor-chunk as we want them separated (don't care too much about small sizes).
     neutrino.config.plugins.delete('runtime-chunk')
@@ -109,7 +104,7 @@ module.exports = (neutrino, options = {}) => {
         ['babel-preset-env', {
           loose: true,
           targets: {
-            browsers: ['ie >= 7']
+            browsers: ['ie 7']
           }
         }]
       ]
@@ -199,5 +194,13 @@ module.exports = (neutrino, options = {}) => {
   neutrino.config.plugin('npm-install')
     .use(WebpackShellPlugin, [{
       onBuildEnd: [`(cd ${path.resolve(neutrino.options.output)} && npm install --production)`]
+    }])
+
+  // Add sourcemap plugin.
+  neutrino.config.plugin('sourcemap')
+    .use(webpack.SourceMapDevToolPlugin, [{
+      test: neutrino.regexFromExtensions(),
+      exclude: [/-extendscript\.js$/, /node_modules/],
+      filename: '[name].map'
     }])
 }
