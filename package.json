@@ -1,6 +1,6 @@
 {
   "name": "neutrino-preset-cep",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A Neutrino preset for developing plugins on Adobe's CEP (Common Extensibility Platform)",
   "main": "index.js",
   "scripts": {

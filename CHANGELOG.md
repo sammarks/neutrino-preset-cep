@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.11"></a>
+## [0.0.11](https://github.com/sammarks/neutrino-preset-cep/compare/v0.0.10...v0.0.11) (2018-08-24)
+
+
+### Features
+
+* Sourcemaps and a new ES5 shim. ([68d81e4](https://github.com/sammarks/neutrino-preset-cep/commit/68d81e4))
+
+
+
 <a name="0.0.10"></a>
 ## [0.0.10](https://github.com/sammarks/neutrino-preset-cep/compare/v0.0.9...v0.0.10) (2018-08-21)
 
