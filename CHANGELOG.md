@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.16"></a>
+## [0.0.16](https://github.com/sammarks/neutrino-preset-cep/compare/v0.0.15...v0.0.16) (2019-03-08)
+
+
+### Features
+
+* use safe mode on the shell plugin ([4cbae50](https://github.com/sammarks/neutrino-preset-cep/commit/4cbae50))
+
+
+
 <a name="0.0.15"></a>
 ## [0.0.15](https://github.com/sammarks/neutrino-preset-cep/compare/v0.0.14...v0.0.15) (2018-11-30)
 
