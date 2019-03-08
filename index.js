@@ -197,7 +197,8 @@ module.exports = (neutrino, options = {}) => {
     ]])
   neutrino.config.plugin('npm-install')
     .use(WebpackShellPlugin, [{
-      onBuildEnd: [`(cd ${path.resolve(neutrino.options.output)} && npm install --production)`]
+      onBuildEnd: [`(cd ${path.resolve(neutrino.options.output)} && npm install --production)`],
+      safe: true
     }])
 
   // Add sourcemap plugin.
