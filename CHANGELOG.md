@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.17"></a>
+## [0.0.17](https://github.com/sammarks/neutrino-preset-cep/compare/v0.0.16...v0.0.17) (2019-04-05)
+
+
+### Bug Fixes
+
+* Use custom cep-shim instead of es5-shim to fix the Date shim not working properly. ([085c7e5](https://github.com/sammarks/neutrino-preset-cep/commit/085c7e5))
+
+
+
 <a name="0.0.16"></a>
 ## [0.0.16](https://github.com/sammarks/neutrino-preset-cep/compare/v0.0.15...v0.0.16) (2019-03-08)
 
