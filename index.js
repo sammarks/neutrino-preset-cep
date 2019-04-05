@@ -76,16 +76,16 @@ module.exports = (neutrino, options = {}) => {
       if (!xmlData.extensions[extensionKey].manifestOnly) {
         neutrino.config.entry(`${extensionKey}-extendscript`)
           .add(require.resolve('./json'))
-          .add(require.resolve('es5-shim'))
-          .add(require.resolve('es5-shim/es5-sham'))
+          .add(require.resolve('cep-shim'))
+          .add(require.resolve('cep-shim/es5-sham'))
           .add(path.resolve(neutrino.options.root, 'extendscript', extensionKey))
         neutrino.config.entry(extensionKey)
           .prepend(require.resolve('babel-polyfill'))
         if (process.env.JSX_DEBUG) {
           neutrino.config.entry(`${extensionKey}-extendscript-debug`)
             .add(require.resolve('./json'))
-            .add(require.resolve('es5-shim'))
-            .add(require.resolve('es5-shim/es5-sham'))
+            .add(require.resolve('cep-shim'))
+            .add(require.resolve('cep-shim/es5-sham'))
             .add(path.resolve(neutrino.options.root, 'extendscript', extensionKey))
         }
       }
