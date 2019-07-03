@@ -172,7 +172,8 @@ module.exports = (neutrino, options = {}) => {
     'path': 'commonjs path',
     'fs': 'commonjs fs',
     'os': 'commonjs os',
-    'child_process': 'commonjs child_process'
+    'child_process': 'commonjs child_process',
+    'net': 'commonjs net'
   }, options.externals || {})
   neutrino.use((neutrino) => {
     if (process.env.NODE_ENV !== 'development') {
