@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.19"></a>
+## [0.0.19](https://github.com/sammarks/neutrino-preset-cep/compare/v0.0.18...v0.0.19) (2019-09-26)
+
+
+### Bug Fixes
+
+* don't include the user's entire environment in the build ([e07e3ca](https://github.com/sammarks/neutrino-preset-cep/commit/e07e3ca))
+
+
+
 <a name="0.0.18"></a>
 ## [0.0.18](https://github.com/sammarks/neutrino-preset-cep/compare/v0.0.17...v0.0.18) (2019-07-03)
 
