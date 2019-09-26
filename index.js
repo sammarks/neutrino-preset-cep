@@ -154,12 +154,9 @@ module.exports = (neutrino, options = {}) => {
   }, options.jsxbin || {}))
 
   // Add webpack.DefinePlugin
-  const env = Object.keys(process.env).reduce((env, key) => {
-    env[key] = JSON.stringify(process.env[key])
-    return env
-  }, {
+  const env = {
     APP_VERSION: JSON.stringify(packageJson.version)
-  })
+  }
   neutrino.config.plugin('define')
     .use(webpack.DefinePlugin, [{
       'process.env': env
