@@ -32,7 +32,7 @@
   "devDependencies": {
     "ava": "^0.25.0",
     "neutrino": "^8.0.0",
-    "standard-version": "^4.4.0",
+    "standard-version": "^8.0.1",
     "tap-xunit": "^2.3.0",
     "webpack": "^3.12.0"
   },
